@@ -1,0 +1,40 @@
+<%- include('../../layouts/admin/dashboardheader') %>
+   
+    <div class="container-fluid"> 
+        <h1 class="h3 mb-4 text-gray-800">Profile Page</h1>
+        <% if(error.length) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>OMG! </strong> <%= error %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+        <% } %>        
+        <form method='post' action="/admin/updateProfile" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Email address:</label>
+                <input type="email" class="form-control" value="<%= loginUser.email %>" id="email" name="email" readonly>
+                <input type="hidden" value="<%= loginUser._id %>" id="userid" name="userid" readonly>
+            </div>
+    
+            <div class="form-group">
+                <label>First Name:</label>
+                <input type="text" class="form-control" placeholder="First Name" id="fname" name="fname" value="<%= loginUser.fname %>" required>
+            </div>
+    
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input type="text" class="form-control" placeholder="Last Name" id="lname" name="lname" value="<%= loginUser.lname %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Profile Image:</label>
+                <input type="file" class="form-control" id="image" name="image">
+            </div>
+
+            <a href="/admin/dashboard" class="btn btn-danger">Back to Dashboard</a>
+            <button type="submit" class="btn btn-primary">Update</button>            
+        </form> 
+    </div>
+
+<%- include('../../layouts/admin/dashboardfooter') %>

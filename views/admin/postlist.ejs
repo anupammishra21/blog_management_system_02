@@ -1,0 +1,83 @@
+<%- include('../../layouts/admin/dashboardheader') %>
+ <div class="container-fluid">   
+    <h1 class="h3 mb-4 text-gray-800">User Blog Post Management</h1>
+    <% if(success.length) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Congratz! </strong> <%= success %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+    <% } %>       
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">Blog Post List</h4>            
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <tr>
+                                <th>User</th>
+                                <th>Category</th>
+                                <th>Image</th>
+                                <th>Heading</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>                       
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>User</th>
+                            <th>Category</th>
+                            <th>Image</th>
+                            <th>Heading</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Action</th>                
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    <% allPost.map(data => { %>    
+                        <tr>
+                            <td><%= data.user_details.fullname %><br>
+                                <%= data.user_details.email %> </td>
+                            <td><%= data.cat_details.name %></td>
+                            <td></td>
+                            <td><%= data.heading %></td>
+                            <td><%- data.post.slice(0,50); %>...</td>
+                            <td>
+                                <% if(data.isStatus=='Active') { %>   
+                                    <a href="/admin/updateStatus/<%=data._id%>" class="btn btn-success">Active</a> 
+                                <% } else { %>
+                                    <a href="/admin/updateStatus/<%=data._id%>" class="btn btn-warning">Inactive</a>
+                                <% } %>    
+                            </td>
+
+                            <td>
+                                <li class="nav-item dropdown no-arrow" style="list-style-type: none; ">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ***
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow"
+                                        aria-labelledby="userDropdown">                                       
+                                        <a class="dropdown-item" href="/admin/postView/<%=data._id%>">View</a>
+                                        <a class="dropdown-item" href="/admin/postDelete/<%=data._id%>">Delete</a>                                                                             
+                                    </div>    
+                                </li>   
+                            </td>
+                        </tr>
+
+                    <% }) %>                 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../layouts/admin/dashboardfooter') %>

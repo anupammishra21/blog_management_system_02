@@ -1,0 +1,77 @@
+<%- include('../../layouts/admin/dashboardheader') %>
+
+
+ <div class="container-fluid">   
+    <h1 class="h3 mb-4 text-gray-800">Banner Management</h1>
+    <% if(success.length) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Congratz! </strong> <%= success %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+    <% } %>       
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">Banner List</h4>
+            <a href="/admin/banner/showbanadd" class="btn btn-primary">Add Banner</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Image</th>    
+                            <th>Heading</th>                       
+                                                 
+                            <th>Status</th>
+                            <th>Action</th>                          
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Image</th> 
+                            <th>Heading</th>
+                                                          
+                            <th>Status</th>
+                            <th>Action</th>                
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    <% allbans.map(data => { %>    
+                        <tr>
+                            <td><img class="img-rounded" src="/admin/banner-img/<%=data.image %>" style="width:100px;height:100px"></td>      
+                            <td><%= data.heading %></td>                        
+                            <td>
+                                <% if(data.isStatus=='Active') { %>   
+                                    <a href="/admin/banner/updateStatus/<%=data._id%>" class="btn btn-success">Active</a> 
+                                <% } else { %>
+                                    <a href="/admin/banner/updateStatus/<%=data._id%>" class="btn btn-warning">Inactive</a>
+                                <% } %>    
+                            </td>
+
+                            <td>
+                                <li class="nav-item dropdown no-arrow" style="list-style-type: none; ">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ___
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow"
+                                        aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="/admin/banner/banedit/<%=data._id%>">Edit</a>
+                                        <a class="dropdown-item" href="/admin/banner/banview/<%=data._id%>">View</a>
+                                        <a class="dropdown-item" href="/admin/banner/bandelete/<%=data._id%>">Delete</a>                                                                             
+                                    </div>    
+                                </li>   
+                            </td>
+                        </tr>
+
+                    <% }) %>                 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../layouts/admin/dashboardfooter') %>

@@ -1,0 +1,21 @@
+<%- include('../../layouts/admin/dashboardheader') %>
+
+
+ <div class="container-fluid">   
+    <h1 class="h3 mb-4 text-gray-800">View Blog Post</h1>
+    <form>
+        <div class="form-group">           
+            <div>Heading: <%= postDetails.heading %> </div>                
+        </div>
+
+        <div class="form-group">
+            <div class="div">Blog Post: <%- postDetails.post %></div>
+        </div>
+        
+        <div class="form-group">
+            Image: <img src="../../front/blog-img/<%= postDetails.image %>">
+        </div>   
+    </form>
+</div>
+
+<%- include('../../layouts/admin/dashboardfooter') %>
